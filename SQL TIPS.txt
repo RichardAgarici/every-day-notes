@@ -1,0 +1,179 @@
+SQL TIPS:
+
+Variable: VarChar="String" = Trebuie definita(1000)(500)(200) - in functie de conditie.
+int/INT = whole numbers
+Decimal = double
+Blob = binary large objects (imagini/files)
+Date = Date
+Timestampt = data/ora/minut/secunda
+
+cuvintele rezervate se pot scrie cu sau fara capslock
+
+Describe (numele tabelei)  = arata cum este formata tabela
+
+";" nu e musai nevoie intr-un query
+
+cheia franceza de langa tabel este pentru a modifica functionalitatea tabelului
+
+primary key nu poate fi decat una singura pe tabel
+
+auto_increment merge la cifre = creste ++
+
+se pot modifica tabelele direct in program aplicand schimbarile dorite, ulterior se da apply si mysql genereaza cod automat.
+
+queries : un query este un scenariu pe care il determinam in SQL
+
+3 most common words : select, from, where
+
+select = selecting which table
+where = getting the current row, current collumn
+from =  
+
+select * = selecteaza toate valorile din table.
+
+select (nume coloana),(nume coloana) from (nume tabel) = selecteaza toate valorile din tabelul x cu specificatia ca sunt doar aceste valori
+
+virgula este legatura dintre ele
+
+nu se poate intr-un query decat un singur Select
+
+daca de exemplu coloana este de tip int tiny int, ex age, daca adaugam sau decrementam valorile din camp se modifica in functie de matematica ex +10 -> adauga 10 ani la toate valorile
+
+cuvantul AS modifica coloana intr-o coloana custom in functie de ce anume scriem noi in query. ex : age+10 as "Toti oamenii peste 10 ani"(daca trecem in format string putem scrie ce dorim noi acolo) == coloana Toti oamenii peste 10 ani.
+
+cuvantul where este un fel de filtru ex. name = "Bob" -> Selecteaza din coloana elementul/elementele care contin numele Bob. Acest filtru se aplica si la restul variabilelor in functie de varianta. (Varchar, Int, tinyint, decimal, date... )
+
+ SELECT * FROM employee WHERE id!= 3    selecteaza din table ceva ce nu e egal cu id 3
+
+-- este comentariu
+
+-- = equal
+-- != Not equal
+-- <> Not equal
+-- > Greater than
+-- < Less than
+-- <= Less than and equal
+-- >= Greater than and equal
+
+
+daca scriem tabel manual : 
+
+create table (nume) (
+id int not null auto_increment,
+name varchar(200) not null,
+surname varchar(10) null,
+age int null,
+primary key(id)
+);
+
+ordinea de scriere : numele coloanei, tipul datei, date aditionale.
+primary key se scrie ultimul.
+
+show columns from (nume tabel) = arata cum sunt formate coloanele
+show tables = arata toate tabelele
+drop tables = sterge tabelele
+drop table (nume) = sterge tabelul specificat
+alter table = modifica tabelul in functie de ce scrii dupa
+alter table (nume) drop (nume coloana); = din tabelul selectat, sterge coloana... 
+nu poti dropui ultima coloana din tabel
+
+ctrl+d merge si in sql
+ctrl+enter executa LINIA de cod
+ctrl+shift+enter executa tot query 
+ctrl+w nu merge ca in intelijj !!!!!!!!!!!!!
+
+poti sterge consola din sql cu clear
+
+cuvantul add este pentru a introduce o noua coloana in tabel. ex : alter table employee add salary int, add department varchar(20);
+
+alter table employee change column salary salary tinyint; = modifica tipul de date permis pentru coloana salary din int in tinyint(o valoare de int mai mica)
+
+select distinct = cuvant rezervat pentru o lista specifica pentru spre exemplu o anumita categorie. 
+
+tipul de data DATE se scrie in format YYYY-MM-DD
+
+date e doar pentru an
+datetime e pentru timestamp (data plus ora, minut, secunda)
+
+"" e tot una cu '' in sql 
+ctrl+// e la fel in sql ca si in intelijj, comenteaza linia de cod
+
+select * from company where department="biology" and country="UK";    = selecteaza-mi din tabel valorile care contin biology dar si UK
+
+select * from company where age>60 and department = "marketing";      = selecteaza-mi din tabel valorile care contin varsta mai mare de 60 si sunt si in depart marketing
+
+select * from company where age>60 or department = "marketing";     = electeaza-mi din tabel valorile care contin varsta mai mare de 60 sau sunt in depart marketing
+
+select * from company where age>70 or department = "marketing" and country ="TUR"    = 
+selecteaza-mi din tabel valorile care contin varsta mai mare de 70 de ani sau sunt in acelasi timp si in depart marketing si din tara Turcia.
+
+select * from company where birth_date<'1990-10-10' = el selecteaza toate liniile care sunt mai devreme de 1990-10-10.
+
+NOT = filtru de cautare care elimina ceea ce trecem noi
+ex : select * from company WHERE NOT (department="marketing")    = selecteaza toate liniile fara depart mark
+
+SELECT * FROM company WHERE birth_date>"1985-10-06" OR country="USA"    = selecteaza toate liniile
+
+SELECT * FROM company WHERE country="UK" OR country="USA" OR country ="TUR" = SELECTEAZA una din tarile mentionate.
+
+SELECT * FROM company WHERE country IN("UK", "USA", "TUR")    = e tot una cu linia de sus
+
+SELECT * FROM company WHERE country NOT IN("USA", "UK") = alege toate liniile care nu contin usa si uk
+
+
+LIKE = filtru pentru anumit parametru . ex: varchar, string, alege cuvintele care incep cu litera 'T', ETC.
+
+%B - CUVINTE CARE SE TERMINA CU 'B'
+B% - CUVINTE CARE INCEP CU 'B'
+%B% - CUVINTE CE CONTIN 'B'
+
+SELECT * FROM company WHERE name LIKE 'J%' = selecteaza toate liniile cu persoane care incep cu J
+
+SELECT * FROM company WHERE name LIKE'%Y' = selecteaza toate liniile care se termina in y
+
+SELECT * FROM company WHERE name LIKE'%O%' = selecteaza toate liniile care contin litera O
+
+BETWEEN = FILTRU de cautare intre 2 valori
+
+SELECT * FROM company WHERE salary BETWEEN 5000 and 10000  
+
+SELECT * FROM company WHERE (salary BETWEEN 5000 AND 8000) AND (age BETWEEN 20 AND 30) 
+
+NULL = filtru care are casuta specificata nula(nimic)
+
+SELECT * FROM company WHERE department IS NULL = selecteaza-mi toti care nu au nimic
+
+ORDER BY = filtru ce ordoneaza campurile alfabetic, numeric, data, double (value).
+
+SELECT * FROM company ORDER BY name = filtreaza numele alfabetic
+
+SELECT * FROM company ORDER BY name ASC = filtreaza alfabetic de la mic la mare
+
+SELECT * FROM company ORDER BY name DESC = filtreaza de la mare la mic
+
+SELECT name, country FROM company ORDER BY salary 
+
+SELECT * FROM company LIMIT 5,2 = filtreaza liniile de la 5 in jos luand 2 pozitii
+basically : skip first 5, and give me 2 records. 
+
+SELECT * FROM company LIMIT 5 = filtreaza primele 5 pozitii din companie ca index de id
+
+SELECT * FROM company ORDER BY salary DESC LIMIT 5 = filtreaza descrescator primele 5 cele mai bune salarii
+
+SELECT * FROM company ORDER BY salary ASC LIMIT 5 = idem, dar invers cel mai mic la cel mai mare, primele 5 pozitii
+
+SELECT * FROM company ORDER BY salary DESC LIMIT 5,3 = filtreaza descrescator randurile de la 5 la 8.
+
+ALTER TABLE company DROP birth_date = drops column birth_date
+
+INSERT INTO company VALUES (12, 'Lisa', '40', 'Marketing', 'UK',3000) = inserare manuala.
+daca inseram inca un value cu id 12 o sa dea duplicat din cauza la primary key
+
+INSERT INTO company (id, name, age) VALUES(15, "Toni", 36) = se pot modifica intrarile manual ca si un constructer overwrote.
+daca de exemplu alegem noi manual fiedurile si omitem un field care era setat initial cu NOT NULL vom primi eroare, obligandu-ne sa introducem conform constructorului de tabel corect.
+
+Cand facem un constructor de tabel, putem sa punem default value ex: name varchar(10) default 'Unknown'
+
+
+
+
